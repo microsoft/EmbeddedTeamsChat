@@ -1,0 +1,209 @@
+<html>
+    <head>
+        <!-- charset is being set to handle invalid regular expression in imported library dependency -->
+        <!-- This can also be added directly to the script reference fileref.setAttribute("charset", "UTF-8"); -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/atom-one-dark.min.css">
+    </head>
+    <body>
+        <div style="background-color: #444; position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px;">
+            <div id="header" style="width: 1080px; height: 60px; position: absolute; left: 50%; margin-left: -540px; top: 20px; color: #fff">
+                <h1>Teams Embedded Chat Sample</h1>
+            </div>
+            <div id="embed" style="width: 400px; height: 500px; position: absolute; left: 50%; margin-left: -540px; top: 80px; border: 1px solid #333; background: white;"></div>
+            <div id="ctrls" style="width: 260px; height: 500px; position: absolute; left: 50%; margin-left: -120px; top: 80px; border: 1px solid #333; background: white; padding: 15px;">
+                <div class="form-group">
+                    <label for="txtEntityId">Notification Source</label>
+                    <div class="form-check">
+                        <input title="rbNotificationSourceGraph" class="form-check-input ns" disabled type="radio" name="rbNotificationSource" id="rbNotificationSourcegraph" value="graph">
+                        <label class="form-check-label" for="rbNotificationSourceGraph">
+                        Microsoft Graph
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input title="rbNotificationSourceAcs" class="form-check-input ns" disabled type="radio" name="rbNotificationSource" id="rbNotificationSourceacs" value="acs">
+                        <label class="form-check-label" for="rbNotificationSourceAcsOM">
+                        ACS w/ Online Meeting
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtEntityId">Entity ID*</label>
+                    <input type="text" class="form-control" id="txtEntityId">
+                </div>
+                <div class="form-group">
+                    <label for="txtChatTopic">Chat Topic</label>
+                    <input type="text" class="form-control" id="txtChatTopic">
+                </div>
+                <div class="form-group">
+                    <label for="txtParticipants">Participants</label>
+                    <input type="text" class="form-control" id="txtParticipants" placeholder="ex: foo@bar.com;test@user.com">
+                </div>
+                <div class="form-check" style="padding-bottom: 10px;">
+                    <input class="form-check-input" type="checkbox" id="chkDisableAdd">
+                    <label class="form-check-label" for="chkDisableAdd">
+                      Disable add participants
+                    </label>
+                </div>
+                <!-- More controls here -->
+                <button id="refresh" class="btn btn-primary btn-block" disabled>Start Chat</button>
+                <button id="reset" class="btn btn-secondary btn-block">Reload Form</button>
+            </div>
+            <div id="editor" style="width: 400px; height: 500px; position: absolute; left: 50%; margin-left: 160px; top: 80px; border: 1px solid #333; background: #282c34;">
+                <pre>
+<code class="language-html"></code>
+                </pre>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+        <script>
+            checkLink = async url => (await fetch(url)).ok
+            var notificationSources = [
+                {
+                    name: 'graph',
+                    id: 'rbNotificationSourcegraph',
+                    src: '/dist/graph/embeddedchat.min.js',
+                    enabled: false
+                },
+                {
+                    name: 'acs',
+                    id: 'rbNotificationSourceacs',
+                    src: '/dist/acs/embeddedchat.min.js',
+                    enabled: false
+                }
+            ]
+            $(document).ready(async () => {
+                for (let i = 0; i < notificationSources.length; i++) {
+                    const source = notificationSources[i];
+                    source.enabled = await checkLink(source.src);
+                    if (source.enabled) {
+                        $(`#${source.id}`).prop("disabled", false);    
+                    }
+                }
+
+                // initialize form based on url
+                var params = window.location.search;
+                if (params.length > 0) {
+                    params = params.substring(1);
+                    var parts1 = params.split('&');
+                    parts1.forEach((val, i) => {
+                        var parts2 = val.split('=');
+                        if (parts2[0] == "script") {
+                            var enabledSources = notificationSources.filter(x => x.enabled);
+                            if (enabledSources.length == 0) {
+                                alert('Could not load any notification sources');
+                                return;
+                            }
+
+                            // get the specified source if enabled, otherwise use the first enabled source
+                            var defaultSource = enabledSources.find(x => x.name == parts2[1]) ?? enabledSources[0];
+
+                            $(`#${defaultSource.id}`).prop("checked", true);
+
+                            // add new script reference
+                            var fileref = document.createElement("script");
+                            fileref.setAttribute("id", "embedScript");
+                            fileref.setAttribute("type","text/javascript");
+                            fileref.setAttribute("src", defaultSource.src);
+                            document.body.appendChild(fileref);
+                        }
+                        else {
+                            $(`#${parts2[0]}`).val(decodeURIComponent(parts2[1]));
+                        }
+                    });
+                }
+                else {
+                    var enabledSources = notificationSources.filter(x => x.enabled);
+                    if (enabledSources.length == 0) {
+                        alert('Could not load any notification sources');
+                        return;
+                    }
+                     
+                    // default to first source
+                    var defaultSource = enabledSources[0];
+                    $(`#${defaultSource.id}`).prop("checked", true);
+
+                    // add new script reference
+                    var fileref = document.createElement("script");
+                    fileref.setAttribute("id", "embedScript");
+                    fileref.setAttribute("type","text/javascript");
+                    fileref.setAttribute("src", defaultSource.src);
+                    document.body.appendChild(fileref);
+                }
+
+                // builds the script preview
+                var updateCode = () => {
+                    var selectedSource = notificationSources.find(x => x.name == $("input[name='rbNotificationSource']:checked").val());
+                    var text = `<div id="embed"></div>\n`;
+                    text += `<script src="${selectedSource.src}" />\n\n`;
+                    text += `<script>\n`;
+                    text += `teamsEmbeddedChat.renderEmbed(\n`;
+                    text += `    document.getElementById("embed"),\n`;
+                    text += `    {\n`;
+                    var embedContainer = document.getElementById("embed");
+                    if ($("#txtEntityId").val() && $("#txtEntityId").val().length > 0 && !embedContainer.hasChildNodes()) {
+                        text += `        entityId: "${$("#txtEntityId").val()}",\n`;
+                        $("#refresh").removeAttr("disabled");
+                        $("#txtEntityId").removeClass("is-invalid");
+                    }
+                    else {
+                        $("#refresh").attr("disabled", "true");
+                        $("#txtEntityId").addClass("is-invalid");
+                    }
+                    if ($("#txtChatTopic").val() && $("#txtChatTopic").val().length > 0)
+                        text += `        topicName: "${$("#txtChatTopic").val()}",\n`;
+                    if ($("#txtParticipants").val() && $("#txtParticipants").val().length > 0) {
+                        var p = $("#txtParticipants").val().split(";");
+                        var pFlat = p.join("\",\"");
+                        text += `        participants: [\"${pFlat}\"],\n`;
+                    }
+                    if ($("#chkDisableAdd").is(":checked"))
+                        text += `        disableAddParticipants: true,\n`;
+                    text += `    }\n`;
+                    text += `);\n`;
+                    text += `<\/script>\n`;
+                    $(".language-html").text(text);
+                    hljs.highlightAll();
+                };
+                updateCode();
+                $(".ns").change((e, s) => {
+                    var url = `/index.html?script=${$("input[name='rbNotificationSource']:checked").val()}`;
+                    if ($("#txtEntityId").val() && $("#txtEntityId").val().length > 0)
+                        url += `&txtEntityId=${encodeURIComponent($("#txtEntityId").val())}`;
+                    if ($("#txtParticipants").val() && $("#txtParticipants").val().length > 0)
+                        url += `&txtParticipants=${encodeURIComponent($("#txtParticipants").val())}`;
+                    // when swithcing notification source, clear local storage tokens
+                    localStorage.clear();
+                    window.location = url;
+                });
+                $(".form-control").keyup(() => { updateCode(); });
+                $(".form-check-input").change(() => { updateCode(); });
+                $("#refresh").click(() => {
+                    var config = { entityId: $("#txtEntityId").val() };
+                    if ($("#txtChatTopic").val().length > 0) {
+                        config.topicName = $("#txtChatTopic").val();
+                    } else {
+                        // if not topic name is entered give chat name of entityId
+                        config.topicName = $("#txtEntityId").val();
+                    }
+                    if ($("#txtParticipants").val().length > 0) {
+                        var participants = $("#txtParticipants").val().split(";");
+                        config.participants = participants;
+                    }
+                    if ($("#chkDisableAdd").is(":checked"))
+                        config.disableAddParticipants = true;
+                    $("#refresh").attr("disabled", "true");
+                    teamsEmbeddedChat.renderEmbed(
+                        document.getElementById("embed"),
+                        config
+                    );
+                });
+                $("#reset").click(() => {
+                    window.location.reload();
+                });
+            });
+        </script>
+    </body>
+</html>

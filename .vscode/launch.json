@@ -1,0 +1,106 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+            "name": ".NET Core Launch (web)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/bin/Debug/net7.0/EmbeddedChat.dll",
+            "presentation": {
+                "group": "all",
+                "hidden": true
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS":"https://+:8080",
+                // "ASPNETCORE_Kestrel__Certificates__Default__Password": "CREDENTIAL_PLACEHOLDER",
+                // "ASPNETCORE_Kestrel__Certificates__Default__Path": "/https/aspnetapp.pfx"
+            }
+        },
+        {
+            "name": "Attach to Frontend (Chrome)",
+            "type": "chrome",
+            "request": "launch",
+            "url": "https://localhost:8080",
+            "preLaunchTask": "buildfront",
+            "cascadeTerminateToConfigurations": [
+                ".NET Core Launch (web)"
+            ],
+            "presentation": {
+                "group": "all",
+                "hidden": true
+            },
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "name": "Attach to Frontend (Edge)",
+            "type": "msedge",
+            "request": "launch",
+            "url": "https://localhost:8080",
+            "preLaunchTask": "buildfront",
+            "postDebugTask": "Terminate All Tasks",
+            "cascadeTerminateToConfigurations": [
+                ".NET Core Launch (web)"
+            ],
+            "presentation": {
+                "group": "all",
+                "hidden": true
+            },
+            "internalConsoleOptions": "neverOpen"
+        },
+        {
+            "type": "PowerShell",
+            "request": "launch",
+            "name": "PowerShell Launch (current file)",
+            "script": "${file}",
+            "args": [],
+            "cwd": "${file}"
+        }, 
+    ],
+    "compounds": [
+        {
+            "name": "Debug (Chrome)",
+            "configurations": [
+                ".NET Core Launch (web)",
+                "Attach to Frontend (Chrome)"
+            ],
+            "presentation": {
+                "group": "all",
+                "order": 2
+            },
+            "stopAll": true
+        },
+        {
+            "name": "Debug (Edge)",
+            "configurations": [
+                ".NET Core Launch (web)",
+                "Attach to Frontend (Edge)"
+            ],
+            "presentation": {
+                "group": "all",
+                "order": 2
+            },
+            "stopAll": true
+        },
+        {
+            "name": "Debug Backend",
+            "configurations": [
+                ".NET Core Launch (web)"
+            ],
+            "presentation": {
+                "group": "all",
+                "order": 3
+            },
+            "stopAll": true
+        }
+    ]
+}

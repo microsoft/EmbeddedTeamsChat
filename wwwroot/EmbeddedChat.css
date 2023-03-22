@@ -1,0 +1,825 @@
+/* THESE ARE FOR TESTING...DO NOT INCLUDE IN FINAL CSS */
+.DoNotUse {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    background: #444444;
+  }
+    
+  .DoNotUse-embed {
+    width: 400px;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    margin-left: -200px;
+    top: 20px;
+  }
+  
+  /* Start Teams Embed Styles */
+  .teams-embed-container {
+    display: flex; 
+    flex-direction: column; 
+    width: 100%; 
+    height: 100%; 
+    background: #f3f3f3; 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Web", sans-serif;
+  }
+  
+  .teams-embed-header {
+    display: flex; 
+    height: 40px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+    
+  .teams-embed-header-text {
+    flex-grow: 1;
+  }
+  
+  .teams-embed-header-text h2 {
+    margin: 8px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  
+  .teams-embed-header-participants {
+    padding: 1px;
+  }
+    
+  .teams-embed-header-participants-button {
+    background: 0;
+    border: 0;
+    display: inline-flex;
+    color: #424242;
+  }
+  
+  .teams-embed-header-participants-button g {
+    fill: #424242;
+  }
+    
+  .teams-embed-header-participants-button:hover {
+    color: #574fbd;
+  }
+  
+  .teams-embed-header-participants-button:hover g {
+    fill: #574fbd;
+  }
+  
+  .teams-embed-header-participants-button .icons-filled {
+    display:none;
+  }
+  
+  .teams-embed-header-participants-button:hover .icons-filled {
+    display:block;
+  }
+  
+  .teams-embed-header-participants-icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 32px;
+    height: 32px;
+  }
+  
+  .teams-embed-header-participant-icon svg {
+    height: 3.2rem;
+    width: 3.2rem;
+  }
+  
+  .teams-embed-header-participants-count {
+    padding-top: 9px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: -4px;
+  }
+  
+  .teams-embed-chat {
+    flex: 1;
+    overflow: auto;
+  }
+    
+  /* Start ParticipantList */
+  .teams-embed-participant-container {
+    width: 260px;
+    height: 280px;
+    background: #fff;
+    border-radius: 5px;
+    position: absolute;
+    right: 0px;
+    top: 41px;
+    box-shadow: 0 0 2px rgba(0,0,0,.12),0 8px 16px rgba(0,0,0,.14);
+    display: flex;
+    flex-direction: column; 
+  }
+  
+  .teams-embed-participant-list {
+    flex-grow: 1;
+    overflow: auto;
+  }
+  
+  .teams-embed-participant-list-footer {
+    height: 40px;
+    border-top: 1px solid #f1f0ef;
+    display: flex;
+    color: #565656;
+    fill: #565656;
+    padding: 2px;
+  }
+  
+  .teams-embed-participant-list-footer:hover {
+    background: #f1f0ef;
+    color: #212120;
+    fill: #212120;
+  }
+  
+  .teams-embed-participant-list-footer-icon {
+    padding-left: 5px;
+    padding-top: 7px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+  }
+
+  .teams-embed-participant-list-footer-icon svg {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .teams-embed-participant-list-footer-text {
+    padding-top: 8px;
+    cursor: pointer;
+  }
+  /* End ParticipantList */
+  
+  /* Start AddParticipantDialog */
+  .teams-embed-add-participant-dialog {
+    width: 400px;
+    min-height: 160px;
+    background: #fff;
+    border-radius: 5px;
+    position: absolute;
+    right: 10px;
+    top: 50px;
+    box-shadow: 0 0 2px rgba(0,0,0,.12),0 8px 16px rgba(0,0,0,.14);
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Web", sans-serif;
+    z-index: 2000;
+  }
+  
+  .teams-embed-add-participant-dialog-form {
+    flex-grow: 1;
+    padding: 15px;
+  }
+  
+  .teams-embed-add-participant-dialog-form h3 {
+    font-size: 12px;
+    font-weight: 50px;
+    margin: 5px 0px;
+  }
+  
+  .teams-embed-add-participant-dialog-form > div:nth-of-type(1) {
+    margin-top: 12px;
+  }
+  
+  .teams-embed-add-participant-dialog-radio {
+    line-height: 20px;
+    min-height: 25px;
+    font-size: 14px;
+  }
+  
+  .teams-embed-add-participant-dialog-buttons {
+    display: flex;
+    padding: 10px;
+  }
+  
+  .teams-embed-add-participant-dialog-cancel {
+    margin: 0;
+    font-size: 14px;
+    height: 32px;
+    width: 96px;
+    font-weight: 600;
+    padding: 0 2px;
+    border-radius: 2px;
+    box-sizing: inherit;
+    box-shadow: 0 .2rem .4rem -.075rem rgba(0,0,0,.25);
+    background: #fff;
+    border: 0;
+    color: #252423;
+  }
+  .teams-embed-add-participant-dialog-cancel:hover {
+    background: #eae8e6;
+  }
+  
+  .teams-embed-add-participant-dialog-add {
+    margin-left: 10px;
+    font-size: 14px;
+    height: 32px;
+    width: 96px;
+    font-weight: 600;
+    padding: 0 2px;
+    border-radius: 2px;
+    box-sizing: inherit;
+    box-shadow: 0 .2rem .4rem -.075rem rgba(0,0,0,.25);
+    background: #5b5fc7;
+    border: 0;
+    color: #fff;
+  }
+  .teams-embed-add-participant-dialog-add:hover {
+    background: #34315b;
+  }
+  /* End AddParticipantDialog */
+  
+  /* Start PeoplePicker */
+  .teams-embed-peoplepicker {
+    background: #eeeeee;
+    min-height: 30px;
+    width: 100%;
+    border-bottom: 2px solid transparent;
+    border-radius: 2px;
+  }
+  .teams-embed-peoplepicker:focus-within {
+    border-bottom: 2px solid #574fbd;
+  }
+  
+  .teams-embed-peoplepicker-input-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .teams-embed-peoplepicker-input {
+    flex-grow: 1;
+  }
+  .teams-embed-peoplepicker-input-ctrl {
+    outline: none; 
+    white-space: nowrap; 
+    padding: 6px; 
+    font-size: 14px;
+  }
+  
+  /* Start PeoplePickerSelection */
+  .teams-embed-peoplepicker-selection-outer {
+    padding: 6px;
+  }
+  
+  .teams-embed-peoplepicker-selection {
+    display: flex;
+    height: 20px;
+    background: #f3f3f3;
+    border-radius: 10px;
+  }
+  
+  .teams-embed-peoplepicker-selection:hover {
+    background: #cdcce4;
+  }
+  
+  .teams-embed-peoplepicker-selection-img {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+  }
+  
+  .teams-embed-peoplepicker-selection-name {
+    font-size: 14px;
+    padding: 0px 4px;
+    white-space: nowrap;
+  }
+  
+  .teams-embed-peoplepicker-selection-remove {
+    width: 20px;
+    height: 20px;
+  }
+  /* End PeoplePickerSelection */
+  
+  .teams-embed-peoplepicker-suggestions {
+    position: absolute;
+    background: white;
+    width: 368px; 
+    box-sizing: inherit;
+    box-shadow: 0 .2rem .4rem -.075rem rgba(0,0,0,.25);
+  }
+  
+  .teams-embed-peoplepicker-waiting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+  }
+  
+  .teams-embed-peoplepicker-noresults {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    font-weight: bold;
+  }
+  
+  /* End PeoplePicker */
+  
+  /* Start PeopleItem */
+  .teams-embed-people-item {
+    display: flex;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .teams-embed-people-item:hover {
+    background: #f1f0ef;
+  }
+  
+  .teams-embed-people-item-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+  }
+  
+  .teams-embed-people-item-name {
+    padding: 8px;
+  }
+  /* End PeopleItem */
+  
+  /* Start Waiting */
+  @-webkit-keyframes spin24{to{transform:translate3d(0, -1440px, 0)}}
+  @-moz-keyframes spin24{to{transform:translate3d(0, -1440px, 0)}}
+  @keyframes spin24{to{transform:translate3d(0, -1440px, 0)}}
+  
+  @-webkit-keyframes spin72{to{transform:translate3d(0, -4320px, 0)}}
+  @-moz-keyframes spin72{to{transform:translate3d(0, -4320px, 0)}}
+  @keyframes spin72{to{transform:translate3d(0, -4320px, 0)}}
+  
+  .teams-embed-waiting-indicator {
+    overflow: hidden;
+  }
+  
+  .teams-embed-waiting-indicator.x24 {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .teams-embed-waiting-indicator.x72 {
+    width: 72px;
+    height: 72px;
+  }
+  
+  .teams-embed-waiting-indicator-img {
+    display: block;
+    position: relative;
+    animation-delay: 0s;
+    animation-direction: normal;
+    animation-duration: 2s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+    animation-timing-function: steps(60);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 4880'%3E%3Cg role='presentation'%3E%3Cpath fill='%236264a7' d='M67.4 26.4c5.8-2 12.4 3.3 11.4 9.4-.4 6.5-8.8 10-13.8 6-5.6-3.6-4.2-13.5 2.4-15.3zM66.5 113.7c5.7-3.3 13.6 1.8 12.7 8.4 0 6.4-8 10.4-13.2 7-5.6-3.2-5.4-12.5.5-15.3z'%3E%3C/path%3E%3Cpath fill='%235659b0' d='M65.5 200.4c5.7-3.4 13.6 2 12.6 8.5 0 6-7 10.7-12.7 7.7-6.4-3-6-13.2.2-16.3z'%3E%3C/path%3E%3Cpath fill='%23575ab1' d='M64.3 286.2c5-2 11.3 2.3 11.2 7.8 0 5.4-4.5 11.7-10.5 11-5.4-.3-9.2-6.3-7.3-11.2 1.2-3.2 3.2-6.5 6.6-7.6z'%3E%3C/path%3E%3Cpath fill='%23585bb2' d='M59.4 372.5c5-2.6 11.6 1 12 6.5.8 5-3.4 8.6-7 11.3-4.5 3.2-11.7.2-12.6-5.3-1.4-5.5 3.6-9.7 7.6-12.5z'%3E%3C/path%3E%3Cpath fill='%235a5db4' d='M54.3 457.4c4-2.2 9.6 0 11.2 4.2 1.7 3.7 0 8.4-3.5 10.5-3.7 2.5-8.2 5.6-12.8 4-4.3-1.6-6.5-6.8-4.8-11 1.5-4.2 6.4-5.4 10-7.6z'%3E%3C/path%3E%3Cpath fill='%235b5fb6' d='M48.6 540.7c4.4-2 10 1 11 5.7 1 4-1.4 8.4-5.4 9.7-4 1.6-8.5 3-13 2.5-5.6-.8-8.6-8-5.3-12.6 2.7-4.4 8.4-3.5 12.6-5.3z'%3E%3C/path%3E%3Cpath fill='%235d60b8' d='M29.4 622.4c3-1.5 6.4 0 9.6 0 3.4.3 7.3-1 10.3 1.3 4.6 3 4.4 10.4-.2 13.3-3.7 2-8.2 1.7-12.4 1.5-3.6-.5-7.8-.7-10.2-4-3.2-3.7-1.6-10.2 3-12z'%3E%3C/path%3E%3Cpath fill='%235f63ba' d='M20.3 698.3c4-2 7.8 1.3 11.4 2.8 4 2 9.6 1 12.2 5 3.3 4.7-.2 12-6 12.3-7 0-14-2.6-19.7-6.6-4.7-3.4-3.5-11.6 2-13.4z'%3E%3C/path%3E%3Cpath fill='%236165bc' d='M12.3 771.3c3-1.5 7-.6 9 2 3 3.8 6.7 6.7 11 8.3 3.3 1 5.7 4 5.5 7.4.2 4.8-4.8 8.7-9.3 7.4-7.7-2.2-14.5-7.2-19.3-13.6-2.8-3.7-1.2-9.8 3-11.5z'%3E%3C/path%3E%3Cpath fill='%236467bf' d='M7.5 841.7c4-2 9.2.3 10.3 4.6 1.7 5.4 5 10 9.7 13 4 2.5 4.6 8.4 1.4 11.6-2.5 2.6-7 3-10 1-7.4-5-13-12.6-15.5-21-1.2-3.6.5-8 4-9.3z'%3E%3C/path%3E%3Cpath fill='%23666ac1' d='M6.5 910.8c3-1.6 7.3-.4 9 2.6 1.7 2.2 1 5 1.4 7.6 0 5.6 2.5 11 6 15 2.5 2.5 2.7 6.7.5 9.5-2.4 3.3-7.8 3.8-10.7 1-7.6-7.8-11.5-19-10.6-29.6.2-2.7 1.8-5.2 4.3-6.2z'%3E%3C/path%3E%3Cpath fill='%23696cc4' d='M9.3 980c3.7-2 9 .3 10 4.4 1 2.4-.2 4.8-1 7-2.4 5.7-2.3 12.4.3 18 1 2.3 2.4 5 1.5 7.6-1 4-5.7 6.2-9.5 4.5-2.6-1-3.8-3.7-5-6-4.4-10-4.3-21.8.4-31.6.6-1.7 1.7-3 3.3-4z'%3E%3C/path%3E%3Cpath fill='%236b6fc7' d='M16.3 1051.2c4-2.6 10 1 10 5.8.5 3-2 5.3-4 7.4-5.3 5.7-7 14-5.2 21.6 1 3.5-1 7.4-4.4 8.5-3.4 1.2-7.6-.8-8.7-4.3-4.2-13.8.7-30.2 12.3-39z'%3E%3C/path%3E%3Cpath fill='%236e72ca' d='M26.4 1125.3c4.5-2.6 10.7 1.5 10 6.7-.4 3.3-3.3 5.2-6 6.3-8.2 3.4-14 11.8-14.2 20.6 0 2.6-.6 5.6-3.2 7-4 2.8-10 0-10.2-5-.8-15.3 9.2-30.3 23.6-35.7z'%3E%3C/path%3E%3Cpath fill='%237175cd' d='M35.3 1203.2c3.7-.3 8.6-1.2 11.2 2.3 2.7 3.2 1 8.8-3 10-3.7.8-7.7.3-11.3 1.7-8 2.6-13.8 9.5-15.8 17.5-1 4.7-7.6 6.2-10.8 2.7-2.8-2.7-1.7-7-.4-10 4.5-13 16.6-22.6 30-24.2z'%3E%3C/path%3E%3Cpath fill='%237478d0' d='M36.4 1283.3c7-.6 14.2.5 20.3 4 3.8 2.4 3.3 8.7-.8 10.6-3 1.5-6-.2-8.6-1-9.8-3.5-21.6.5-27.3 9-1.5 2.4-3 5.6-6 6-4.6 1-9-4.4-6.8-8.7 5.4-11 17-18.8 29.2-20z'%3E%3C/path%3E%3Cpath fill='%23777bd3' d='M36.5 1363.5c11.6-1 23.8 3.6 31.3 12.7 2.7 3.6-.3 9.5-4.8 9.4-3.2.3-5-2.6-7.3-4.4-8.4-7.4-22.2-7.6-31-.4-2.3 1.8-4.3 5-7.7 4.7-4.7 0-7.5-6.3-4.4-9.8 6-7 14.8-11.3 24-12.2z'%3E%3C/path%3E%3Cpath fill='%237a7ed6' d='M31.4 1444.6c18-4.8 38.3 6.6 43.3 24.6 1 4-3.5 8-7.4 6.6-3.5-1-4-4.8-5.5-7.5-5.5-10.8-19.6-16-30.8-11.4-3.2 1-6.2 4.3-10 3-3.8-1.4-5-7.2-1.7-9.8 3.5-2.8 7.8-4.4 12-5.6z'%3E%3C/path%3E%3Cpath fill='%237d81da' d='M32.4 1524.6c15-3.4 31.8 4 39.2 17.8 3.5 6.5 5.3 14 4.3 21.5-1 4-6.7 5.5-9.5 2.4-2-2-1.4-5-1.6-7.4-.2-11.6-9.6-22-21-23.7-4.4-.8-8.8 0-13 1-4 1.2-7.7-3.5-6-7.2 1-3 4.6-3.7 7.4-4.4z'%3E%3C/path%3E%3Cpath fill='%238084dd' d='M36.3 1604.4c14-2 28.5 6 35 18.2 6 10.6 6 24.3 0 34.8-2 3.5-7.6 3-9-.6-1.8-3.5 1.4-6.8 2-10.2 3.8-12.4-4-26.7-16.3-30.5-4-1.6-8.3-.8-12.4-1.6-4.6-1.7-4-9 .7-10z'%3E%3C/path%3E%3Cpath fill='%238387e0' d='M43.3 1685.3c4-1.2 8.2 1 12 2.5 14.7 6.6 23.3 24.2 19.5 40-1.8 8-6.5 15.7-13.4 20.6-3 2.2-8-.6-7.7-4.4 0-2.3 1.8-3.7 3.3-5 7-6 10-16 7.8-24.7-1.8-8-7.6-15-15.3-18-2.2-.8-4.6-1-6.8-2-3.4-2-3-7.5.6-9z'%3E%3C/path%3E%3Cpath fill='%23868be4' d='M50.2 1768c1.4-.8 3.2-.8 4.7 0 13.2 5.7 21.7 20.5 20.3 35-1 15-12.6 28.5-27.3 31.4-3.4.6-6.4-3-5-6.3.6-2.6 3.7-3 6-4 8.2-2.8 14.5-10.4 16.2-19 2-9-1.5-18.8-8.6-24.6-2.2-2-5-3-7.2-4.8-2.2-2-1.7-6 .8-7.5z'%3E%3C/path%3E%3Cpath fill='%238a8ee7' d='M57.4 1852.2c3.7-1.8 6.6 2 9 4.5 11 12 11.7 31.6 1.7 44.5-6.8 9.3-18.5 14.6-30 14-2.4-.3-5.3-.2-7-2.2-1.6-2-1-5.4 1.3-6.8 1.7-1 3.8-.3 5.6-.4 9.8 1 20-4.5 24.7-13.2 4.6-8 4.3-18.7-.8-26.5-1.8-3-4.5-5-6.6-7.4-1.4-2.2-.4-5.4 2-6.4z'%3E%3C/path%3E%3Cpath fill='%238d91ea' d='M62.3 1938.3c1.7-1 4.3-1 5.6.8 9 11.5 9.2 28.8.8 40.8-7 10.4-20 16.4-32.6 15-5.7-.7-11.3-2.7-16-6-2.6-1.8-2-6.4 1-7.5 2.2-1 4.2.6 6 1.5 8.6 5 20 4.4 28-1.5 7.7-5.4 12-15 10.8-24.3-.3-4.5-2.3-8.6-4.7-12.4-1.6-2-1-5 1-6.3z'%3E%3C/path%3E%3Cpath fill='%239095ee' d='M66.3 2025.2c2-1.2 4.8-.5 5.7 1.6 5.6 12.8 2.2 28.7-8 38.2-9.4 9.2-24.2 12.2-36.5 7.4-7-2.8-13.5-8-17.3-14.7-1.2-2.6 1-5.8 3.8-5.7 2.5 0 3.7 2.4 5 4 7 9.5 20.5 13 31.2 8.4 12-4.7 19-18.8 15.3-31-.8-2.7-2.3-6.5.8-8.2z'%3E%3C/path%3E%3Cpath fill='%239398f1' d='M68.6 2112.7c2-1 5 0 5.4 2.4 2.4 14.5-5.8 30-19.2 36-12.5 6.2-28.7 3.6-38.7-6.2-5.6-5.5-9.4-13-10-21-.4-4 6-5 7.2-1.2 1 5.5 3 11 7 15.3 7 7.8 19 11 28.8 7 10.7-3.6 18.4-14.7 17.7-26-.2-2.2-.6-5.3 2-6.3z'%3E%3C/path%3E%3Cpath fill='%23969bf5' d='M8.4 2188.4c2-2 6-.3 6 2.6-.4 2-1 4-1.2 5.8-1 8.8 2.5 18 9.3 23.7 7 6 17.2 8 26 5 10-3 17-12.3 18.4-22.5.3-4 6.7-3.6 7 .3-1 15-13.3 28-28 30.3-13 2.5-27.4-3.6-34.6-15-5.2-7.8-6.8-17.8-4.6-27 .4-1 .6-2.4 1.6-3.2z'%3E%3C/path%3E%3Cpath fill='%23999ef8' d='M15.3 2257c2-1 4.4 0 5 2.2.3 2-1.3 3.3-2.3 4.8-5.7 7.6-6.8 18.2-3 27 4.3 10 15 16.7 26 16.2 10-.3 19.4-6.6 23.7-15.6 1.2-3.4 6.7-2.2 6.4 1.4-.7 3.4-3 6.3-5 9-9.3 11-26 15-39.3 9.2C13.8 2306 5 2292 6 2278c.7-7.8 3.7-15.7 9.3-21z'%3E%3C/path%3E%3Cpath fill='%239ca1fb' d='M25.6 2329.6c1.8-1.2 4.5.2 4.6 2.5.2 2.7-2.8 3.4-4.6 4.7-12 7-16.6 23.5-10 35.7 5.8 12.2 21.6 18.4 34.2 13.2 3.6-1.2 6.4-3.6 9.5-5.7 2.8-2 6 2.5 3.6 4.7-11.4 11-30.5 12-43 2.4-12.8-9-17.4-27.3-10.5-41.3 3.3-7 9-13 16-16z'%3E%3C/path%3E%3Cpath fill='%236264a7' d='M33.2 2407.2c2.3-.4 4.6-.8 7-.6 2.4.5 3 4.2.6 5.4-4 .7-8.3 1-12 2.8-12.6 5.3-19.5 20.5-15.2 33.4 4 13.3 18.8 22 32.3 18.8 2-.6 6-2 6.7 1.3.7 3.7-4 4-6.6 4.6-15.4 3-32.3-6.4-37.4-21.4-5.3-13.8 0-30.6 12-39 3.8-2.6 8-4.4 12.6-5.4z'%3E%3C/path%3E%3Cpath fill='%239ca1fb' d='M37.4 2486.4c5.5-.4 11.3.4 16.3 3 2 1.6.8 5.3-2 5.4-3.5-.8-7-2.3-10.8-2.2-13-.7-25.2 9-27.8 21.4-3 12 3.4 25 14.4 30.5 3.4 2 7.3 2.3 11 3 2.7 1 2.3 5.6-.6 6-17.3-.3-32-16.3-31.7-33.5-.4-17 14-32.7 31-33.6z'%3E%3C/path%3E%3Cpath fill='%23999ef8' d='M33.5 2566.7c10.8-2.2 22.7 1.3 30.5 9.3 1.8 1.6 1 5-1.3 5.6-2.3 1-4-1.5-5.6-2.7-9.6-8.4-25-8-34.6.3-8.6 7-12 19.7-8 30 2.3 6.4 7 11.4 12.7 14.8 3.2 2 .6 7.3-2.8 6-13.8-6.8-21.2-24-17-38.7 3-12.3 13.8-22.3 26.3-24.6z'%3E%3C/path%3E%3Cpath fill='%23969bf5' d='M32.4 2646.7c15-3.7 32 4.3 38.3 18.5.8 2.3-1.4 4.8-3.8 4.5-2.2 0-3-2.2-4-3.7-5.6-9.7-17.8-14.8-28.6-12.4-9.8 2-18 10-20.5 19.6-2 7.2-.8 15.2 3.4 21.4 1 1.5 2.4 3.3 1.4 5.2-1 2.4-4.7 2.8-6 .7-9.2-11.7-9.2-29.2-.2-41 4.8-6.4 12-11 19.8-12.8z'%3E%3C/path%3E%3Cpath fill='%239398f1' d='M31.4 2726.7c14.6-4 31.3 3 38.5 16.3 1.7 3.3 3.4 7 3.7 10.8-.3 2.8-4 4.3-6 2.6-1.6-1-1.7-3-2.3-4.6-2.5-8.4-9.6-15-18-17.5-8.6-2.6-18.6-.3-25.2 5.8-6.5 6-10 15-8.6 23.5 0 1.8 1 4-.5 5.6-1.5 2.2-5.2 1.8-6.3-.7-5.2-17.5 7-37.5 24.7-41.6z'%3E%3C/path%3E%3Cpath fill='%239095ee' d='M36.4 2805.5c14.7-1.7 29.7 7 35.4 20.6 2 5 3.2 10.4 2.8 15.7-.5 4-6.7 4.5-7.8.7-.6-3.3-.3-6.8-1.5-10-3-10.4-12.7-18.2-23.4-18.8-11.8-1-23.7 6.8-27 18-1 2.2-1 5-3.4 6-2.7 1.2-6-1.4-5.6-4.3 2.6-14.6 15.7-26.5 30.4-27.8z'%3E%3C/path%3E%3Cpath fill='%238d91ea' d='M33.5 2885.7c14-2.8 29.3 4 36.5 16.3 5 8.4 6.4 19 3.3 28.2-1 3-5.7 3.6-7.5 1-1.5-2.2 0-4.8 0-7 2.3-12-5-24.4-16.3-28.6-9.8-4-22-1.2-29 7-1.5 1.5-2.8 4-5.4 3.8-3.2 0-5.3-4-3.3-6.8 5-7.2 13-12.3 21.8-14z'%3E%3C/path%3E%3Cpath fill='%238a8ee7' d='M32.4 2965.7c15-3.5 31.4 4 38.5 17.4 5.8 10.8 5.6 24.7-1 35.2-1.6 3-6.4 2.6-7.8-.5-1.4-2.3.4-4.7 1.3-7 4.2-8.3 3-19-2.8-26.4-6-8-17-12-27-9.5-3 .6-5.7 2.6-8.8 3.3-4 .4-6.4-5-3.6-7.6 3.2-2.5 7.2-3.8 11-4.8z'%3E%3C/path%3E%3Cpath fill='%23868be4' d='M34.4 3045.4c14.2-3.4 29.8 4.8 36.7 17.5 7.7 13.5 5 32-6.5 42.5-2.5 2.2-7 .7-7.6-2.5-1-3.2 2-5.3 3.5-7.6 6-7.6 7-18.6 2.4-27-4.4-8.5-13.5-14.3-23-14-2-.2-4.6.4-6.3-1.2-2.5-2-2-6.3.7-7.8z'%3E%3C/path%3E%3Cpath fill='%238387e0' d='M48.2 3126c4.2-.4 8 2.2 11.5 4.2 13 8.3 19 25.5 14.5 40-2.6 8.7-8.6 16.4-16.5 20.7-3.2 2-7.7-1-7.4-4.8 0-2.7 2.5-4 4.5-5.5 7.5-5 11.6-14.7 10.5-23.6-1-9-7.2-17.2-15.7-20.5-1.8-1-4-1.5-4.8-3.6-1.3-2.8.5-6.3 3.4-7z'%3E%3C/path%3E%3Cpath fill='%238084dd' d='M58.3 3212.3c3.8-1.7 6.8 1.8 9 4.4 9.5 10.8 11.3 27.5 4.5 40-4.6 8.7-12.8 15.4-22.2 18-3.7 1-7.6-2.8-6.5-6.5 1-3.7 5-4 7.8-5.4 11.3-5 17.4-19.2 13-30.8-1.3-4.5-4.2-8.2-7.5-11.4-2.4-2.5-1.2-7 2-8.3z'%3E%3C/path%3E%3Cpath fill='%237d81da' d='M65.2 3302.3c2.8-1.5 6.5-.2 7.7 2.7 2.6 6 3.6 12.6 3 19-1.7 17.8-18.2 32.7-36 32-4.5 0-6.6-6.3-3.4-9.3 2.6-2.5 6.6-1.5 9.7-2.5 10.8-2.6 19-13 18.7-24.2 0-4-1.2-7.6-2.5-11.3-1-2.4.5-5.3 2.7-6.4z'%3E%3C/path%3E%3Cpath fill='%237a7ed6' d='M67.4 3394.4c3-2.2 8-.2 8.8 3.6 1.3 15-8.5 30.3-22.6 35.8-7.2 2.8-15.4 3.5-23 1.3-3.8-1.3-4.7-7.2-1.3-9.7 2.8-2.4 6.5-.6 9.7-.6 12 .8 23.8-8.7 25.4-20.7.6-3.3-.3-7.6 3-9.5z'%3E%3C/path%3E%3Cpath fill='%23777bd3' d='M66.5 3485.7c4.3-1.7 9.2 2.8 7.7 7.2-5 14.3-20 24.2-35.2 23.6-6-.2-12-1.6-17-4.8-3.5-2.5-2.8-8.7 1.3-10.2 3-1.5 6 .6 8.7 1.5 10.6 4.2 23.8-.8 29.2-10.8 1.4-2.4 2.3-5.7 5.3-6.5z'%3E%3C/path%3E%3Cpath fill='%237478d0' d='M59.5 3575.7c3.7-1.5 8.3 1.4 8.4 5.4.3 4.4-4 7-6.8 9.2-13.7 10-34.2 8.6-46.3-3.2-3.4-3.2-1.5-9.6 3-10.4 3-1 5.4 1.3 7.6 3 7.4 5.7 18.3 6.3 26.4 1.5 2.8-1.3 4.8-4 7.5-5.3z'%3E%3C/path%3E%3Cpath fill='%237175cd' d='M11.4 3651.2c2.5-1.4 6-1 8 1.4 2 2.5 4 5.3 6.8 7 6.6 5 15.5 5.6 23 2.7 4.7-2.3 10.3 2.6 8.8 7.6-1 4-5.6 5-9 6-15 4-32-2.8-40-16-2-3-.7-7.2 2.4-8.8z'%3E%3C/path%3E%3Cpath fill='%236e72ca' d='M9.5 3723.6c3.4-1 7 1.2 8 4.6 3 8.3 11 14.7 19.8 15.4 2.4.4 5.3 0 7.2 2 3 2.4 3 7.4 0 10-2.5 2.4-6.4 1.7-9.6 1.3C21 3755 9 3745 4.6 3732c-1.2-3.5 1-7.6 4.8-8.4z'%3E%3C/path%3E%3Cpath fill='%236b6fc7' d='M6.4 3796.4c3.3-1.6 7.6-.2 9.3 3 1 2.7 1 5.5 2 8.2 2 6 6.3 11 12 13.6 2.5 1.2 5.2 2.8 5.6 5.8 1.2 4.7-3.6 9.4-8.3 8-13.5-4.5-23.5-17.8-24.4-32-.2-2.8 1.5-5.4 3.8-6.6z'%3E%3C/path%3E%3Cpath fill='%23696cc4' d='M7.3 3868.4c3.3-1.3 7.3.3 9 3.5 1 1.8.4 4 .4 6-.7 7 2 13.7 6.7 18.6 2.4 2 3.4 5.8 1.8 8.7-1.8 4-7.5 5.2-10.8 2.3C5 3899.4.7 3886 2.8 3874c.4-2.6 2.2-4.7 4.5-5.6z'%3E%3C/path%3E%3Cpath fill='%23666ac1' d='M8.5 3941.4c4.6-2.7 11 1.3 10.7 6.7-.7 4-2.7 7.8-2.4 12-.2 4 1.3 7.5 2.5 11 1.2 4-1.6 8.3-5.5 9-3.4.8-7-1-8.3-4.4-4.3-9.3-4.5-20.3-.7-29.8.7-1.8 2-3.5 3.7-4.4z'%3E%3C/path%3E%3Cpath fill='%236467bf' d='M12.5 4014.7c4.2-2.2 9.8.6 10.5 5.3 1 5-4 8.3-5 13-2 4.6.7 10.7-3.4 14.6-3.8 4-11.3 1.7-12.4-3.7-1.2-8.7 1.2-17.6 6-25 1-1.6 2.3-3.5 4.3-4.3z'%3E%3C/path%3E%3Cpath fill='%236165bc' d='M17.4 4089.3c4.7-2.6 11.3 1.2 11 6.7.5 5-5 7.3-7.3 11-2.7 3.7-2.6 9.7-7.5 11.4-5.3 2.3-11.6-2.8-10.4-8.4 2.2-8.2 7.3-16 14.4-20.7z'%3E%3C/path%3E%3Cpath fill='%235f63ba' d='M25.4 4164.6c5.4-1.4 11 4 9.3 9.5-.7 4.2-5 5.6-8 7.7-4 2.3-5.7 7.7-10.7 7.8-6 .8-10.6-6.7-7.3-11.8 4-6 10-10.7 16.7-13z'%3E%3C/path%3E%3Cpath fill='%235d60b8' d='M30.3 4242.6c4.3-1.7 10 0 11.3 4.8 1.8 4.7-1.7 10-6.6 10.6-5 .8-9 6-14.3 4.2-5.6-1.3-7.6-9-3.6-13 3.8-3.4 8.6-5.2 13.3-6.6z'%3E%3C/path%3E%3Cpath fill='%235b5fb6' d='M35.4 4321.5c4.2-.4 9.4-1 12.3 2.8 3.6 4.3 1.3 12-4.3 13l-11.4 1.2c-6 .3-10-6.8-7-11.8 1.7-4 6.5-4.7 10.4-5.2z'%3E%3C/path%3E%3Cpath fill='%235a5db4' d='M39.3 4401.5c4.3-.8 8.7.2 12.7 1.6 5.2 2.3 6.2 10.2 2 13.8-4.4 3.8-10.4 1.2-15.3.4-7.2-2.4-6.6-14 .6-15.7z'%3E%3C/path%3E%3Cpath fill='%23585bb2' d='M49.3 4483c4-.5 7.7 1.7 11 3.8 4.5 3.5 3.7 11.5-1.6 14-4.6 2.4-9.5-.6-13.4-3-5.3-4.2-2.7-13.8 4-14.7z'%3E%3C/path%3E%3Cpath fill='%23575ab1' d='M56.3 4567.4c7-1.7 15 6.2 12 13.2-1.6 4.6-7.8 6.7-12 4-2.8-1.6-5.7-4-6.2-7.7-.6-4.2 2.2-8.6 6.3-9.6z'%3E%3C/path%3E%3Cpath fill='%235659b0' d='M61.4 4653.5c7-3 14.7 5.6 11.5 12.3-2.3 6-11 7-14.8 2-4.2-4.3-2.7-12.4 3-14.3z'%3E%3C/path%3E%3Cpath fill='%236264a7' d='M64.5 4740.3c5.7-3 13.2 2.2 12.4 8.6-.3 6.3-8.4 10.2-13.6 6.5-5.5-3.4-5-12.7 1-15.2zM67.3 4826.3c6.2-2.4 13 4 11.3 10.3-1 6-9.3 9-14 4.8-5.2-4-3.7-13.4 2.7-15z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+  }
+  
+  .teams-embed-waiting-indicator-img.x24 {
+    width: 24px;
+    height: 1464px;
+    animation-name: spin24;
+  }
+  
+  .teams-embed-waiting-indicator-img.x72 {
+    width: 72px;
+    height: 4392px;
+    animation-name: spin72;
+  }
+  
+  .teams-embed-waiting {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    z-index: 1000;
+  }
+  
+  .teams-embed-waiting-overlay {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    background: #000;
+    opacity: 0.4;
+    z-index: 1010;
+  }
+  
+  .teams-embed-waiting .teams-embed-waiting-indicator {
+    position: absolute;
+    left: 50%;
+    margin-left: -36px;
+    top: 50%;
+    margin-top: -36px;
+    z-index: 1020;
+  }
+  /* End Waiting */
+  
+  /* Start ButtonPage */
+  .teams-embed-button-page {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    z-index: 900;
+    display: flex;
+    flex-direction: column; 
+    background: #f3f3f3; 
+    align-items: center; 
+    justify-content: center;
+  }
+  
+  .teams-embed-button-page-btn {
+    margin: 0;
+    font-size: 16px;
+    padding: 4px;
+    border-radius: 2px;
+    box-sizing: inherit;
+    box-shadow: 0 .2rem .4rem -.075rem rgba(0,0,0,.25);
+    background: #fff;
+    border: 1px solid #eae8e6;
+    color: #252423;
+    display: flex;
+  }
+  
+  .teams-embed-button-page-btn:hover {
+    background: #eae8e6;
+  }
+  
+  .teams-embed-button-page-btn-img {
+    height: 32px;
+    width: 32px;
+  }
+  
+  .teams-embed-button-page-btn-text {
+    padding-top: 8px;
+    padding-right: 6px;
+  }
+  /* End ButtonPage */
+  
+  /* Start Chat Messages */
+  
+  .teams-embed-chat-container {
+    box-sizing: border-box;
+    height: 100%;
+    background-color: rgb(243, 242, 241);
+    border: rgb(243, 242, 241) 1px solid;
+  }
+  
+  .teams-embed-chat-items {
+    line-height: 18px;
+    margin: 0px;
+    padding: 0px 10px 10px 10px;
+  }
+  
+  .teams-embed-chat-item {
+    width: 95%;
+    list-style: none;
+    padding-top: 1rem;
+    position: relative;
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .teams-embed-chat-message-send-status {
+    align-items: flex-end;
+    fill: #574fbd;
+    width: 12px;
+    visibility: hidden;
+  }
+
+  .teams-embed-chat-message-send-status-icon {
+    display: flex;
+    position: absolute;
+    width: 12px;
+    bottom: 0;
+    right: -15px;
+  }
+
+  .teams-embed-chat-message-send-status.failed {
+    fill: #f00;
+    visibility: visible;
+  }
+
+  .teams-embed-chat-message-send-status-icon .tooltiptext {
+    visibility: hidden;
+    width: 60px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    font-size: 12px;
+  	-webkit-box-shadow: 1px 1px 1px 1px #969696;
+    box-shadow: 1px 1px 1px 1px #969696;
+   
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 90%;
+    left: 90%;
+    margin-top: 5px;
+    margin-left: -50px;
+  }
+  
+  .teams-embed-chat-message-send-status:hover .tooltiptext {
+    visibility: visible;
+  }
+  
+
+  .show {
+    visibility: visible;
+  }
+
+  .teams-embed-chat-item.right {
+    flex-direction: row-reverse;
+  }
+  
+  .teams-embed-chat-item.right .teams-embed-chat-message-author {
+    display: none;
+  }
+  
+  .teams-embed-avatar-container {
+    margin-top: 0.4rem;
+    position: absolute;
+    left: 0px;
+  }
+  
+  .teams-embed-avatar {
+    width: 2.3rem;
+    height: 2.3rem;
+    position: relative;
+    vertical-align: middle;
+    display: inline-block;
+  }
+  
+  .teams-embed-avatar-image {
+    object-fit: cover;
+    border-radius: 714rem;
+    vertical-align: top;
+    width: 100%;
+    display: inline-block;
+    height: 100%;
+  }
+  
+  .teams-embed-chat-item-message {
+    max-width: calc(100% - 3rem);
+    margin-left: 40px;
+  }
+  
+  .teams-embed-chat-message {
+    background-color: rgb(255, 255, 255);
+    border-radius: 3px;
+    color: rgb(64, 64, 64);
+    display: inline-block;
+    font-family: "Segoe UI", system-ui, "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+    font-size: 14px;
+    max-width: 98%;
+    min-width: 180px;
+    outline-width: 0px;
+    overflow-wrap: break-word;
+    padding: 7px 16px;
+    position: relative;
+    text-align: left;
+    word-break: break-word;
+  }
+  
+  .teams-embed-chat-item.right .teams-embed-chat-item-message .teams-embed-chat-message {
+    background-color: rgb(229, 229, 241);
+    margin-left: 20px;
+  }
+  
+  .teams-embed-chat-message-header {
+    overflow-wrap: break-word;
+    text-align: left;
+    word-break: break-word;
+  }
+  
+  .teams-embed-chat-message-author {
+    color: rgb(72, 70, 68);
+    display: inline;
+    font-size: 1.px;
+    font-weight: 400;
+    height: auto;
+    line-height: 16px;
+    margin-bottom: 2px;
+    margin-right: 12px;
+    overflow-wrap: break-word;
+    text-align: left;
+    width: auto;
+    word-break: break-word;
+  }
+  
+  .teams-embed-chat-item-message.right .teams-embed-chat-message-author {
+    border: 0px;
+    clip: rect(0px, 0px, 0px, 0px);
+    height: 1px;
+    line-height: 16px;
+    margin: -1px 12px 2px -1px;
+    overflow-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding: 0px;
+    position: absolute;
+    text-align: left;
+    width: 1px;
+    word-break: break-word;
+  }
+  
+  .teams-embed-chat-message-timestamp {
+    box-sizing: border-box;
+    color: rgb(151, 149, 147);
+    display: inline;
+    font-size: 12px;
+    height: auto;
+    margin-bottom: 2px;
+    overflow-wrap: break-word;
+    text-align: left;
+    width: auto;
+    word-break: break-word;
+  }
+  
+  .teams-embed-chat-message-timestamp.right {
+    color: rgb(72, 70, 68);
+  }
+
+  .teams-embed-chat-message-timestamp.failed {
+    color: #f00;
+  }
+  
+  .teams-embed-chat-message-content {
+    color: rgb(37, 36, 35);
+    display: block;
+    font-size: 14px;
+    overflow-wrap: break-word;
+    text-align: left;
+    word-break: break-word;
+  }
+  
+  .teams-embed-chat-message-content p:first-child {
+    margin: 0;
+  }
+  
+  /* End Chat Messages */
+  
+  /* Start Footer */
+  .teams-embed-footer {
+    align-self: center;
+    max-width: 106rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    width: 100%;
+    position: relative;
+  }
+  
+  .teams-embed-footer-container {
+    margin: 0 10px;
+  }
+  
+  .teams-embed-input-mention-container {
+    background: #fff; 
+    position: absolute; 
+    display: flex; 
+    height: 200px; 
+    flex-direction: column; 
+    width: 300px; 
+    margin-top: -205px;
+    box-shadow: 0 0 2px rgba(0,0,0,.12),0 8px 16px rgba(0,0,0,.14);
+    border-radius: 5px;
+    left: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  .teams-embed-footer-error {
+    color: rgb(255, 0, 0);
+    margin-top: 4px;
+    text-align: left;
+    display: none;
+    font-family: "Segoe UI", system-ui, "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+    font-size: 14px;
+  }
+
+  .teams-embed-footer-input {
+    background: rgb(255, 255, 255);
+    width: 100%;
+    padding: 10px 16px 6px 16px;
+    outline-style: none;
+    border-width: 0px 0px 0.1429rem 0px;
+    border-radius: 0.2143rem 0.2143rem 0.1429rem 0.1429rem;
+    border-style: solid;
+    border-color: transparent;
+    box-sizing: border-box;
+  }
+  
+  .teams-embed-footer-input:focus {
+    border-color: transparent transparent rgb(98, 100, 167) transparent;
+  }
+  
+  .teams-embed-footer-actions > :last-child {
+    margin-left: auto;
+    position: relative;
+    align-items: center;
+    -webkit-box-align: center;
+    display: flex;
+  }
+  
+  .teams-embed-footer-send-message-button {
+    height: 30px;
+    min-width: 20px;
+    background-color: transparent;
+    border: 0;
+    padding: 0px;
+    color: rgb(72, 70, 68);
+    cursor: pointer;
+  }
+  
+  .teams-embed-send-icon {
+    width: 25px;
+    height: 20px;
+  }
+  
+  .teams-embed-footer-send-message-button g {
+    fill: #424242;
+  }
+  
+  .teams-embed-footer-send-message-button:hover {
+    color: #574fbd;
+  }
+  
+  .teams-embed-footer-send-message-button:hover g {
+    fill: #574fbd;
+  }
+  
+  .teams-embed-footer-send-message-button .icons-filled {
+    display: none;
+  }
+  
+  .teams-embed-footer-send-message-button:hover .icons-unfilled {
+    display: none;
+  }
+  
+  .teams-embed-footer-send-message-button:hover .icons-filled {
+    display: block;
+  }
+  /* End Footer */
+  
+  .teams-embed-mention-user {
+    color: rgb(91, 95, 199);
+  }
+  
+  .error-container {
+    background: #424242;
+    color: #fff;
+    padding: .3rem .2rem .2rem;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+
+/* Alert */
+.app-notification-banner {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  min-height: 40px;
+  background-color: rgba(0,0,0,0.8);
+  color: #fff;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  z-index: 901;
+}
+
+.app-notification-container {
+  display: inherit;
+  flex-grow: 1;
+  justify-content: center;
+}
+
+.app-notification-text {
+  text-align: center;
+}
+
+.app-notification-action {
+  font-weight: 400;
+  color: #fff;
+  background-color: transparent;
+  cursor: pointer;
+  text-decoration: underline;
+} 
+
+.app-notification-dismiss-action {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' role='presentation' focusable='false' viewBox='8 8 16 16'%3E%3Cg%3E%3Cpath fill='%23fff' d='M16.707 16l4.243-4.243a.5.5 0 1 0-.707-.707L16 15.293l-4.243-4.243a.5.5 0 1 0-.707.707L15.293 16l-4.243 4.243a.5.5 0 1 0 .707.707L16 16.707l4.243 4.243a.498.498 0 0 0 .707 0 .5.5 0 0 0 0-.707L16.707 16z' /%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  min-height: 1.1429rem;
+  min-width: 1.1429rem;
+  cursor: pointer;
+  margin-right: 2px;
+}

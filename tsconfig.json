@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "strictPropertyInitialization": false,
+        "outDir": "./wwwroot/js/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "es2018",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "esModuleInterop": true
+    },
+    "include": ["./wwwroot/src/**/*"],
+    "exclude": ["node_modules", ".vscode"]
+}

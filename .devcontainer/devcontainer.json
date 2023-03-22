@@ -1,0 +1,68 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "Ubuntu",
+	// a larger marchine is needed for building the front end code
+	"hostRequirements":{       
+		"cpus": 4,       
+		"memory": "8gb"   
+	},
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"build": {
+		"dockerfile": "Dockerfile",
+		// Update 'VARIANT' to pick an Ubuntu version: focal, bionic
+		"args": {
+			"VARIANT": "6.0"
+		}
+	},
+	"settings": {
+		"[PowerShell]": {
+		  "editor.defaultFormatter": "ms-vscode.powershell",
+		  "editor.formatOnPaste": false,
+		  "editor.formatOnSave": true,
+		  "editor.formatOnType": true,
+		  "editor.snippetSuggestions": "inline"
+		},
+		"terminal.integrated.profiles.linux": {
+		  "pwsh": {
+			"path": "/usr/bin/pwsh",
+			"icon": "terminal-powershell"
+		  }
+		},
+		"files.defaultLanguage": "powershell",
+		"terminal.integrated.defaultProfile.linux": "pwsh"
+	},
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {}
+	},
+	
+	"postCreateCommand": "dotnet restore && dotnet dev-certs https --trust && npm install",
+
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"ms-vscode.azure-account",
+				"ms-vscode.powershell",
+				"msazurermtools.azurerm-vscode-tools",
+				"GitHub.vscode-pull-request-github",
+				"ms-dotnettools.vscode-dotnet-runtime",
+				"ms-azuretools.vscode-bicep",
+				"ms-azuretools.vscode-azurefunctions",
+				"ms-dotnettools.csharp"
+			]
+		}
+	},
+
+	// used for allowing the container access to the localhost HTTPS certificate from the local machine
+	"mounts": [
+		// mac & windows
+		// "source=${localEnv:HOME}${localEnv:USERPROFILE}/.aspnet/https,target=/https/,type=bind,consistency=cached"
+	],
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	"remoteUser": "vscode"
+}
