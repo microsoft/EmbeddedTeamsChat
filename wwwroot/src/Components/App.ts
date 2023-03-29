@@ -89,6 +89,22 @@ export class App {
 
                 // update the mapping in the database with all the new thread info
                 await mappingUtil.updateMapping(mapping, appAuthResult.accessToken);
+                mapping.contextCard = config.contextCard;
+
+                if (
+                  mapping.threadInfo?.threadId != undefined &&
+                  mapping.contextCard != undefined
+                ) {
+                  const {
+                    adaptiveCardMessage,
+                  } = require("../Utils/AdaptiveCardUtil");
+                  const res = await GraphUtil.sendChatMessage(
+                    this.graphAuthResult.accessToken,
+                    mapping.threadInfo?.threadId,
+                    adaptiveCardMessage(mapping.contextCard),
+                    true //flag to send message with adaptive card
+                  );
+                }
 
                 // remove the add participant dialog
                 element.removeChild(dialog);
@@ -167,28 +183,39 @@ export class App {
         }
         // start the notifications
         await notificationClient.startNotificationsAsync(mapping, this.authUtil);
-
+        var contextCard = mapping.contextCard;
         var messages:ChatMessage[] = [];
+        
         if (!isNew) {
             // Load existing messages
             let existingMessages = await GraphUtil.getChatMessages(this.graphAuthResult.accessToken, mapping.threadInfo.threadId);
             existingMessages.forEach((m: any, i: number) => {
                 if (m.messageType == "message") {
-                    messages.push({
-                        id: m.id,
-                        type: m.messageType,
-                        threadId: m.chatId,
-                        message: m.body.content,
-                        createdOn: new Date(m.createdDateTime),
-                        modifiedOn: new Date(m.lastModifiedDateTime),
-                        editedOn: (m.lastEditedDateTime) ? new Date(m.lastEditedDateTime) : undefined,
-                        deletedOn: (m.deletedDateTime) ? new Date(m.deletedDateTime) : undefined,
-                        sender: {
-                            id: m.from.user.id,
-                            displayName: m.from.user.displayName,
-                            photo: this.photoUtil.emptyPic // we will get profile pics later
-                        }
-                    })
+                    var msg = {
+                      id: m.id,
+                      type: m.messageType,
+                      threadId: m.chatId,
+                      message: m.body.content,
+                      createdOn: new Date(m.createdDateTime),
+                      modifiedOn: new Date(m.lastModifiedDateTime),
+                      editedOn: m.lastEditedDateTime
+                        ? new Date(m.lastEditedDateTime)
+                        : undefined,
+                      deletedOn: m.deletedDateTime
+                        ? new Date(m.deletedDateTime)
+                        : undefined,
+                      sender: {
+                        id: m.from.user.id,
+                        displayName: m.from.user.displayName,
+                        photo: this.photoUtil.emptyPic, // we will get profile pics later
+                      },
+                      attachment:
+                        m.attachments?.length > 0 ? m.attachments[0] : null,
+                    };
+                    // Pull adaptive card from chat history 
+                    if (msg.attachment != null)
+                      contextCard = JSON.parse(msg.attachment.content);
+                    else messages.push(msg);
                 }
             });
             
@@ -204,9 +231,13 @@ export class App {
                 messages[i].sender.photo = photo
             }
         }
+        else{
+            if(mapping.contextCard !== undefined)
+            contextCard = JSON.parse(mapping.contextCard);
+        }
 
         // insert the appComponent
-        this.appComponent = new ChatContainer(notificationClient, messages, mapping, participants, this.authUtil, this.photoUtil, this.waiting, this.onAlert);
+        this.appComponent = new ChatContainer(notificationClient, messages, mapping, participants, this.authUtil, this.photoUtil, this.waiting, this.onAlert, contextCard);
         element.appendChild(this.appComponent);
 
         // hide waiting indiator

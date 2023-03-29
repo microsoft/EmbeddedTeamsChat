@@ -3,7 +3,8 @@ import { Person } from "./Person";
 export interface Mapping {
     entityId: string;
     disableAddParticipants: boolean;
-    threadInfo?: ThreadInfo; 
+    threadInfo?: ThreadInfo;
+    contextCard?: string; 
 }
 
 export interface ThreadInfo {

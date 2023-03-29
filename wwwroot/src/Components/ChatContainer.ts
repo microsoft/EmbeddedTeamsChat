@@ -14,6 +14,7 @@ import { INotificationClient } from "../NotificationClients/INotificationClient"
 import { Waiting } from "./Waiting";
 import { StatusIcon } from "./StatusIcon";
 import { AlertHandler } from "../Models/AlertAction";
+import * as AdaptiveCards from "adaptivecards";
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -37,6 +38,8 @@ template.innerHTML = `
         <div class="teams-embed-chat">
             <div class="teams-embed-chat-container">
                 <ul class="teams-embed-chat-items">
+                    <div class ="adaptive-card">
+                    </div>
                 </ul>
             </div>
         </div>
@@ -82,8 +85,9 @@ export class ChatContainer extends HTMLElement {
     private mapping: Mapping;
     private notificationClient:INotificationClient;
     private alertHandler: AlertHandler;
+    private cardPayLoad: string|null;
 
-    constructor(notificationClient: INotificationClient, messages: ChatMessage[], mapping: Mapping, participants: Person[], authUtil: AuthUtil, photoUtil: PhotoUtil, waiting:Waiting, alertHandler: AlertHandler) {
+    constructor(notificationClient: INotificationClient, messages: ChatMessage[], mapping: Mapping, participants: Person[], authUtil: AuthUtil, photoUtil: PhotoUtil, waiting:Waiting, alertHandler: AlertHandler, cardPayLoad: string|undefined) {
         super();
         this.waiting = waiting;
         this.chatTitle = mapping.threadInfo?.topicName ?? "";
@@ -95,6 +99,8 @@ export class ChatContainer extends HTMLElement {
         this.mentionInput = "";
         this.participants = participants;
         this.mapping = mapping;
+        this.cardPayLoad =
+          cardPayLoad === undefined ? null : JSON.stringify(cardPayLoad);
         this.notificationClient = notificationClient;
         this.alertHandler = alertHandler;
         this.render();
@@ -378,7 +384,8 @@ export class ChatContainer extends HTMLElement {
         const res = await GraphUtil.sendChatMessage(
             authInfo.accessToken,
             this.mapping.threadInfo.threadId,
-            messageHtml
+            messageHtml,
+            false
         );
 
         if (!res) {
@@ -422,6 +429,18 @@ export class ChatContainer extends HTMLElement {
         // get the template
         const dom = <HTMLElement>template.content.cloneNode(true);
 
+        //Create an adaptivecard instance
+        const adaptiveCard = new AdaptiveCards.AdaptiveCard();
+        var renderedCard;
+
+        if (this.cardPayLoad != null) {
+          const cardJson = JSON.parse(this.cardPayLoad);
+
+          //Parse the card Payload
+          adaptiveCard.parse(cardJson);
+          //Render the card to an HTML Element
+          renderedCard = adaptiveCard.render();
+        }
         // set chat title
         (<HTMLElement>dom.querySelector(".teams-embed-header-text")).innerHTML = `<h2>${this.chatTitle}</h2>`;
 
@@ -444,6 +463,27 @@ export class ChatContainer extends HTMLElement {
 
         // add the add participant dialog
         (<HTMLElement>dom.querySelector(".teams-embed-container")).appendChild(this.dialog);
+        
+        const newerChatItem = document.getElementsByClassName(
+          "teams-embed-chat-items"
+        );
+        
+        // render adaptivecard as first item in chat items
+        if (this.cardPayLoad != null && renderedCard !== undefined && newerChatItem != null) {
+            const container = <HTMLElement>dom.querySelector(".adaptive-card");
+            if (container != null) {
+              container.innerHTML = renderedCard.outerHTML;
+            }
+            if (newerChatItem.length == 0) {
+              (<HTMLElement>(
+                dom.querySelector(".teams-embed-chat-items")
+              )).append(container);
+            } else {
+              (<HTMLElement>(
+                dom.querySelector(".teams-embed-chat-items")
+              )).insertBefore(newerChatItem[1], container);
+            }
+        }
 
         // wire even to toggle participant list
         (<HTMLElement>dom.querySelector(".teams-embed-header-participants-button")).addEventListener("click", () => {
