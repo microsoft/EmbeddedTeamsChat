@@ -1,4 +1,5 @@
-const adaptiveCardMessage = (chatDescription: string) => {
+export class AdaptiveCardMessage {
+  static adaptiveCardMessage = (adaptiveCard: string) => {
   const adaptiveCardTemplate = {
     body: {
       contentType: "html",
@@ -9,12 +10,11 @@ const adaptiveCardMessage = (chatDescription: string) => {
       {
         id: "adaptive34aa4a7fb74e2b300012card",
         contentType: "application/vnd.microsoft.card.adaptive",
-        content: chatDescription,
+        content: adaptiveCard,
       },
     ],
   };
 
   return JSON.stringify(adaptiveCardTemplate);
 };
-
-module.exports = {adaptiveCardMessage};
+}

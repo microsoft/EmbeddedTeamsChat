@@ -1,5 +1,6 @@
 import { ChatMessage } from "../Models/ChatMessage"
 import { StatusIcon } from "./StatusIcon";
+import * as AdaptiveCards from "adaptivecards";
 
 const one_day_in_ms = 1000 * 60 * 60 * 24;
 const template = document.createElement("template");
@@ -17,6 +18,8 @@ template.innerHTML = `
                     <span class="teams-embed-chat-message-timestamp"></span>
                 </div>
                 <div class="teams-embed-chat-message-content"></div>
+                <div class ="adaptive-card">
+                </div>
             </div>
             <div class="teams-embed-chat-message-send-status">
             </div>
@@ -34,6 +37,24 @@ export class ChatItem extends HTMLElement {
         (<HTMLElement>dom.querySelector(".teams-embed-avatar")).classList.add(message.sender.id);
         (<HTMLImageElement>dom.querySelector(".teams-embed-avatar-image")).src = message.sender.photo;
         (<HTMLElement>dom.querySelector(".teams-embed-chat-message-author")).innerText = message.sender.displayName;
+
+        if (message.attachment != null)
+        {
+            //Create adaptive card Instance
+            const adaptiveCard = new AdaptiveCards.AdaptiveCard();
+            var renderedCard;
+            
+            //Parse the Card payload
+            adaptiveCard.parse(message.attachment);
+
+            //Rendered the card to an HTML Element
+            renderedCard = adaptiveCard.render();
+            
+            const container = <HTMLElement>dom.querySelector(".adaptive-card");
+            if (container != null && renderedCard != undefined)
+               container.innerHTML = renderedCard.outerHTML;
+            
+        }
 
         if (message.deletedOn) {
             // if message has been deleted

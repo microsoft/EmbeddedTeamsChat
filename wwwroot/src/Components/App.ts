@@ -16,6 +16,7 @@ import { Operation } from "../Models/Operation";
 import { ChatContainer } from "./ChatContainer";
 import { Alert } from "./Alert";
 import { AlertAction, AlertHandler } from "../Models/AlertAction";
+import { AdaptiveCardMessage } from "../Utils/AdaptiveCardUtil";
 
 export class App {
     private waiting: Waiting;
@@ -87,31 +88,18 @@ export class App {
                 // create the chat using the notification source
                 mapping = await notificationClient.createChatAsync(mapping, participants, this.authUtil);
 
+                if (mapping.threadInfo?.threadId == null) 
+                    throw new Error ("Unable to get ThreadId");
+
                 // update the mapping in the database with all the new thread info
                 await mappingUtil.updateMapping(mapping, appAuthResult.accessToken);
-                mapping.contextCard = config.contextCard;
-
-                if (
-                  mapping.threadInfo?.threadId != undefined &&
-                  mapping.contextCard != undefined
-                ) {
-                  const {
-                    adaptiveCardMessage,
-                  } = require("../Utils/AdaptiveCardUtil");
-                  const res = await GraphUtil.sendChatMessage(
-                    this.graphAuthResult.accessToken,
-                    mapping.threadInfo?.threadId,
-                    adaptiveCardMessage(mapping.contextCard),
-                    true //flag to send message with adaptive card
-                  );
-                }
-
+                
                 // remove the add participant dialog
                 element.removeChild(dialog);
                 
                 // remove the button page
                 element.removeChild(btn);
-                await this.initializeChat(notificationClient, element, mapping, participants, true);
+                await this.initializeChat(notificationClient, element, mapping, participants, true, config.contextCard);
             }
 
             // create new chat...prompt for participants
@@ -172,72 +160,113 @@ export class App {
                 return;
             }
 
-            await this.initializeChat(notificationClient, element, mapping, members, false);
+            await this.initializeChat(notificationClient, element, mapping, members, false, undefined);
         }
     }
 
-    private initializeChat = async (notificationClient: INotificationClient, element: Element, mapping: Mapping, participants: Person[], isNew: boolean) => {
+    private initializeChat = async (notificationClient: INotificationClient, element: Element, mapping: Mapping, participants: Person[], isNew: boolean, contextCard:string|undefined) => {
         if (!mapping.threadInfo?.threadId) {
             console.error("There was an error in adding the initializeChat");
             return;
         }
         // start the notifications
         await notificationClient.startNotificationsAsync(mapping, this.authUtil);
-        var contextCard = mapping.contextCard;
         var messages:ChatMessage[] = [];
         
         if (!isNew) {
-            // Load existing messages
-            let existingMessages = await GraphUtil.getChatMessages(this.graphAuthResult.accessToken, mapping.threadInfo.threadId);
-            existingMessages.forEach((m: any, i: number) => {
-                if (m.messageType == "message") {
-                    var msg = {
-                      id: m.id,
-                      type: m.messageType,
-                      threadId: m.chatId,
-                      message: m.body.content,
-                      createdOn: new Date(m.createdDateTime),
-                      modifiedOn: new Date(m.lastModifiedDateTime),
-                      editedOn: m.lastEditedDateTime
-                        ? new Date(m.lastEditedDateTime)
-                        : undefined,
-                      deletedOn: m.deletedDateTime
-                        ? new Date(m.deletedDateTime)
-                        : undefined,
-                      sender: {
-                        id: m.from.user.id,
-                        displayName: m.from.user.displayName,
-                        photo: this.photoUtil.emptyPic, // we will get profile pics later
-                      },
-                      attachment:
-                        m.attachments?.length > 0 ? m.attachments[0] : null,
-                    };
-                    // Pull adaptive card from chat history 
-                    if (msg.attachment != null)
-                      contextCard = JSON.parse(msg.attachment.content);
-                    else messages.push(msg);
-                }
-            });
-            
-            // sort the messages in order of creation date
-            messages = messages.sort((a, b) => a.createdOn.getTime() - b.createdOn.getTime());
+          // Load existing messages
+          let existingMessages = await GraphUtil.getChatMessages(
+            this.graphAuthResult.accessToken,
+            mapping.threadInfo.threadId
+          );
+          existingMessages.forEach((m: any, i: number) => {
+            if (m.messageType == "message") {
+              var msg = {
+                id: m.id,
+                type: m.messageType,
+                threadId: m.chatId,
+                message: m.body.content,
+                createdOn: new Date(m.createdDateTime),
+                modifiedOn: new Date(m.lastModifiedDateTime),
+                editedOn: m.lastEditedDateTime
+                  ? new Date(m.lastEditedDateTime)
+                  : undefined,
+                deletedOn: m.deletedDateTime
+                  ? new Date(m.deletedDateTime)
+                  : undefined,
+                sender: {
+                  id: m.from.user.id,
+                  displayName: m.from.user.displayName,
+                  photo: this.photoUtil.emptyPic, // we will get profile pics later
+                },
+                attachment:
+                  m.attachments?.length > 0
+                    ? JSON.parse(m.attachments[0].content)
+                    : null,
+              };
+              messages.push(msg);
+            }
+          });
 
-            // populate user pics
-            participants = await GraphUtil.getUserPics(this.graphAuthResult.accessToken, participants, this.photoUtil);
+          // sort the messages in order of creation date
+          messages = messages.sort(
+            (a, b) => a.createdOn.getTime() - b.createdOn.getTime()
+          );
 
-            // populate pics for existing chats
-            for (var i = 0; i < messages.length; i++) {
-                const photo = await this.photoUtil.getGraphPhotoAsync(this.graphAuthResult.accessToken, messages[i].sender.id);
-                messages[i].sender.photo = photo
+          // populate user pics
+          participants = await GraphUtil.getUserPics(
+            this.graphAuthResult.accessToken,
+            participants,
+            this.photoUtil
+          );
+
+          // populate pics for existing chats
+          for (var i = 0; i < messages.length; i++) {
+            const photo = await this.photoUtil.getGraphPhotoAsync(
+              this.graphAuthResult.accessToken,
+              messages[i].sender.id
+            );
+            messages[i].sender.photo = photo;
+          }
+        } else {
+          if (contextCard !== undefined) {
+            const contextCardJson =
+              AdaptiveCardMessage.adaptiveCardMessage(contextCard);
+            const res = await GraphUtil.sendChatMessage(
+              this.graphAuthResult.accessToken,
+              mapping.threadInfo?.threadId,
+              contextCardJson,
+              true //flag to send message with adaptive card
+            );
+            if (res) {
+              const msg: ChatMessage = {
+                id: res.id,
+                message: res.body.content,
+                sender: {
+                  id: res.from.user.id,
+                  displayName: res.from.user.displayName,
+                  photo: this.photoUtil.emptyPic,
+                },
+                threadId: mapping.threadInfo?.threadId,
+                type: res.messageType,
+                createdOn: new Date(res.createdDateTime),
+                modifiedOn: new Date(res.lastModifiedDateTime),
+                attachment:
+                  res.attachments?.length > 0
+                    ? JSON.parse(res.attachments[0].content)
+                    : null,
+              };
+              messages.push(msg);
+            }
             }
         }
-        else{
-            if(mapping.contextCard !== undefined)
-            contextCard = JSON.parse(mapping.contextCard);
-        }
+
+            
+            
+        
 
         // insert the appComponent
-        this.appComponent = new ChatContainer(notificationClient, messages, mapping, participants, this.authUtil, this.photoUtil, this.waiting, this.onAlert, contextCard);
+        this.appComponent = new ChatContainer(notificationClient, messages, mapping, participants, this.authUtil, this.photoUtil, this.waiting, this.onAlert);
         element.appendChild(this.appComponent);
 
         // hide waiting indiator

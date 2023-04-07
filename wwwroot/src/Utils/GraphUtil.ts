@@ -151,9 +151,9 @@ export class GraphUtil {
     };
 
     // sends a chat message
-    public static sendChatMessage = async (token: string, chatId: string, message: string, isContextCard: boolean) => {
+    public static sendChatMessage = async (token: string, chatId: string, message: string, isAdaptiveCard: boolean) => {
         var payload;
-        if(!isContextCard)
+        if(!isAdaptiveCard)
             payload= FormatterUtil.formatMessageBody(message);
         else
             payload= JSON.parse(message);

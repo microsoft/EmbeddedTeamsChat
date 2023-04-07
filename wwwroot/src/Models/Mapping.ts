@@ -4,7 +4,6 @@ export interface Mapping {
     entityId: string;
     disableAddParticipants: boolean;
     threadInfo?: ThreadInfo;
-    contextCard?: string; 
 }
 
 export interface ThreadInfo {
