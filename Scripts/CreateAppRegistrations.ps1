@@ -128,6 +128,10 @@ try {
         }
     }
     $appSecret = Add-MgApplicationPassword -ApplicationId $embeddedChatApplication.Id @secretParams
+
+    # Get current User Oid
+    $context = Get-MgContext
+    $user = Get-MgUser -Filter "UserPrincipalName eq '$($context.Account)'"
   
     $paramsOutput = @{
         '$schema'        = 'https=//schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#'
@@ -136,10 +140,13 @@ try {
             'appName'         = @{
                 'value' = $ApplicationName
             }
-            'ClientId'     = @{
+            'userId'= @{
+                'value' = $user.Id
+            }
+            'clientId'     = @{
                 'value' = $embeddedChatApplication.AppId
             }
-            'ClientSecret' = @{
+            'clientSecret' = @{
                 'value' = $appSecret.SecretText
             }
         }
