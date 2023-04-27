@@ -41,7 +41,7 @@ export class ChatItem extends HTMLElement {
             // update text only
             (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content")).innerHTML = "<p style='font-style: italic'>This message has been deleted</p>";
         } else {
-            if (message.attachment != null) { //&& message.attachment?.type == "AdaptiveCard") {
+            if (message.attachment != null) {
                 if (message.attachment?.type == "AdaptiveCard") {
                 // create adaptive card Instance
                 const adaptiveCard = new AdaptiveCards.AdaptiveCard();
