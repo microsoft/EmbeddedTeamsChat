@@ -53,6 +53,10 @@
   .ac-container .ac-actions .ac-action:hover {
     background-color: #e6e6e6;
   }
+
+  .teams-embed-chat-message-content .ac-container div {
+    white-space: normal !important;
+  }
   
   /* Start Teams Embed Styles */
   .teams-embed-container {
