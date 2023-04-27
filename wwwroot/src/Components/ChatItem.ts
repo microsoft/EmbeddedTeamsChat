@@ -18,7 +18,6 @@ template.innerHTML = `
                     <span class="teams-embed-chat-message-timestamp"></span>
                 </div>
                 <div class="teams-embed-chat-message-content"></div>
-                <div class="adaptive-card"></div>
             </div>
             <div class="teams-embed-chat-message-send-status">
             </div>
@@ -56,16 +55,11 @@ export class ChatItem extends HTMLElement {
                 // rendered the card to an HTML Element
                 let renderedCard = adaptiveCard.render();
 
-                const adaptiveCardDom = <HTMLElement>adaptiveCardTemplate.content.cloneNode(true);
-                if (renderedCard != undefined)
-                    adaptiveCardDom.innerHTML = renderedCard.outerHTML;
-
-                // let contentDom = (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content"));
-                // contentDom.appendChild(adaptiveCardDom);
-
-                const container = <HTMLElement>dom.querySelector(".adaptive-card");
-                if (container != null && renderedCard != undefined)
-                    container.innerHTML = renderedCard.outerHTML;
+                // get the message content element
+                let contentDom = (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content"));
+                if (contentDom != null && renderedCard != undefined)
+                    // set the innerHtml of the message content to the HTML of the adaptive card
+                    contentDom.innerHTML = renderedCard.outerHTML;
                 } else {
                     (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content")).innerHTML = "<p style='font-style: italic'>This message is unsupported.</p>";
                 }

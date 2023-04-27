@@ -152,7 +152,7 @@ export class GraphUtil {
 
     // sends a chat message
     public static sendChatMessage = async (token: string, chatId: string, message: string, isAdaptiveCard: boolean) => {
-        var payload;
+        let payload;
         if(!isAdaptiveCard)
             payload = FormatterUtil.formatMessageBody(message);
         else
