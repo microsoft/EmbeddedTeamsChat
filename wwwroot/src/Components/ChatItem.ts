@@ -24,9 +24,6 @@ template.innerHTML = `
         </div>
     </li>`;
 
-const adaptiveCardTemplate = document.createElement("template");
-adaptiveCardTemplate.innerHTML = `<div class="adaptive-card"></div>`
-
 export class ChatItem extends HTMLElement {
     constructor(message: ChatMessage, isMe: boolean) {
         super();
