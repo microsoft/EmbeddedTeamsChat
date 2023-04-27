@@ -93,7 +93,7 @@ export class App {
 
                 // update the mapping in the database with all the new thread info
                 await mappingUtil.updateMapping(mapping, appAuthResult.accessToken);
-                
+
                 // remove the add participant dialog
                 element.removeChild(dialog);
                 
@@ -164,7 +164,7 @@ export class App {
         }
     }
 
-    private initializeChat = async (notificationClient: INotificationClient, element: Element, mapping: Mapping, participants: Person[], isNew: boolean, contextCard:string|undefined) => {
+    private initializeChat = async (notificationClient: INotificationClient, element: Element, mapping: Mapping, participants: Person[], isNew: boolean, contextCard: string|undefined) => {
         if (!mapping.threadInfo?.threadId) {
             console.error("There was an error in adding the initializeChat");
             return;

@@ -154,9 +154,9 @@ export class GraphUtil {
     public static sendChatMessage = async (token: string, chatId: string, message: string, isAdaptiveCard: boolean) => {
         var payload;
         if(!isAdaptiveCard)
-            payload= FormatterUtil.formatMessageBody(message);
+            payload = FormatterUtil.formatMessageBody(message);
         else
-            payload= JSON.parse(message);
+            payload = JSON.parse(message);
         try {
             const resp = await fetch(`https://graph.microsoft.com/v1.0/chats/${chatId}/messages`, {
                 method: "POST",

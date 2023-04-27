@@ -11,5 +11,5 @@ export interface ChatMessage {
     modifiedOn: Date;
     deletedOn?: Date;
     sendFailed?: boolean;
-    attachment?: JSON;
+    attachment?: any;
 }

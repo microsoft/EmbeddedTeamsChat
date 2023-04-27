@@ -18,13 +18,15 @@ template.innerHTML = `
                     <span class="teams-embed-chat-message-timestamp"></span>
                 </div>
                 <div class="teams-embed-chat-message-content"></div>
-                <div class ="adaptive-card">
-                </div>
+                <div class="adaptive-card"></div>
             </div>
             <div class="teams-embed-chat-message-send-status">
             </div>
         </div>
     </li>`;
+
+const adaptiveCardTemplate = document.createElement("template");
+adaptiveCardTemplate.innerHTML = `<div class="adaptive-card"></div>`
 
 export class ChatItem extends HTMLElement {
     constructor(message: ChatMessage, isMe: boolean) {
@@ -38,31 +40,40 @@ export class ChatItem extends HTMLElement {
         (<HTMLImageElement>dom.querySelector(".teams-embed-avatar-image")).src = message.sender.photo;
         (<HTMLElement>dom.querySelector(".teams-embed-chat-message-author")).innerText = message.sender.displayName;
 
-        if (message.attachment != null)
-        {
-            //Create adaptive card Instance
-            const adaptiveCard = new AdaptiveCards.AdaptiveCard();
-            var renderedCard;
-            
-            //Parse the Card payload
-            adaptiveCard.parse(message.attachment);
-
-            //Rendered the card to an HTML Element
-            renderedCard = adaptiveCard.render();
-            
-            const container = <HTMLElement>dom.querySelector(".adaptive-card");
-            if (container != null && renderedCard != undefined)
-               container.innerHTML = renderedCard.outerHTML;
-            
-        }
-
         if (message.deletedOn) {
             // if message has been deleted
             // update text only
             (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content")).innerHTML = "<p style='font-style: italic'>This message has been deleted</p>";
         } else {
-            // set the message texton the element
-            (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content")).innerHTML = message.message;
+            if (message.attachment != null) { //&& message.attachment?.type == "AdaptiveCard") {
+                if (message.attachment?.type == "AdaptiveCard") {
+                // create adaptive card Instance
+                const adaptiveCard = new AdaptiveCards.AdaptiveCard();
+
+                // parse the Card payload
+                adaptiveCard.parse(message.attachment);
+
+                // rendered the card to an HTML Element
+                let renderedCard = adaptiveCard.render();
+
+                const adaptiveCardDom = <HTMLElement>adaptiveCardTemplate.content.cloneNode(true);
+                if (renderedCard != undefined)
+                    adaptiveCardDom.innerHTML = renderedCard.outerHTML;
+
+                // let contentDom = (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content"));
+                // contentDom.appendChild(adaptiveCardDom);
+
+                const container = <HTMLElement>dom.querySelector(".adaptive-card");
+                if (container != null && renderedCard != undefined)
+                    container.innerHTML = renderedCard.outerHTML;
+                } else {
+                    (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content")).innerHTML = "<p style='font-style: italic'>This message is unsupported.</p>";
+                }
+            } else {
+                // set the message texton the element
+                (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content")).innerHTML = message.message;
+            }
+
             if (message.sendFailed) {
                 // if send status is failed
                 // add the failed class and failed message
