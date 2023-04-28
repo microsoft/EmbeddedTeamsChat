@@ -18,40 +18,10 @@
   }
 
    /* Start Adaptive Card Styles */
-  .ac-container {
+   .ac-container {
     background-color: #ffffff;
-    border: 2px solid #2e0885;
-    border-radius: 4px;
-  }
-  
-  .ac-container .ac-header {
-    border-bottom: 1px solid #d9d9d9;
-  }
-  
-  .ac-container .ac-header .ac-title {
-    color: #333333;
-  }
-  
-  .ac-container .ac-header .ac-subtitle {
-    color: #f03c3c;
-  }
-  
-  .ac-container .ac-body .ac-text {
-    color: #333333;
-  }
-  
-  .ac-container .ac-body .ac-factset {
-    color: #333333;
-  }
-  
-  .ac-container .ac-actions .ac-action {
-    background-color: #f2f2f2;
-    color: #333333;
-    border: 1px solid #d9d9d9;
-  }
-  
-  .ac-container .ac-actions .ac-action:hover {
-    background-color: #e6e6e6;
+    border: 2px solid #f0f0f0;
+    border-radius: 1px;
   }
 
   .teams-embed-chat-message-content .ac-container div {
