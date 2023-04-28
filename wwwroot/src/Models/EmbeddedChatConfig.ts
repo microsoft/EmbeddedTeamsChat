@@ -3,4 +3,5 @@ export type EmbeddedChatConfig = {
     topicName?: string;
     participants?: string[];
     disableAddParticipants?: boolean;
+    contextCard?: string;
 };

@@ -151,9 +151,12 @@ export class GraphUtil {
     };
 
     // sends a chat message
-    public static sendChatMessage = async (token: string, chatId: string, message: string) => {
-        const payload= FormatterUtil.formatMessageBody(message);
-        
+    public static sendChatMessage = async (token: string, chatId: string, message: string, isAdaptiveCard: boolean) => {
+        let payload;
+        if(!isAdaptiveCard)
+            payload = FormatterUtil.formatMessageBody(message);
+        else
+            payload = JSON.parse(message);
         try {
             const resp = await fetch(`https://graph.microsoft.com/v1.0/chats/${chatId}/messages`, {
                 method: "POST",

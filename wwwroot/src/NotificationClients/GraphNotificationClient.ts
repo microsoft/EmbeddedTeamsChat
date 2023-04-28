@@ -172,7 +172,9 @@ export class GraphNotificationClient implements INotificationClient {
                         createdOn: new Date(decryptedResourceData.createdDateTime),
                         modifiedOn: new Date(decryptedResourceData.lastModifiedDateTime),
                         editedOn: (decryptedResourceData.lastEditedDateTime) ?
-                            new Date(decryptedResourceData.lastEditedDateTime) : undefined
+                            new Date(decryptedResourceData.lastEditedDateTime) : undefined,
+                        attachment: (decryptedResourceData.attachments) ?.length > 0 ? 
+                            JSON.parse(decryptedResourceData.attachments[0].content) : null
                     }
 
                     // call the chatListener
