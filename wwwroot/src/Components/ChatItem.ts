@@ -59,7 +59,7 @@ export class ChatItem extends HTMLElement {
                     contentDom.innerHTML = renderedCard.outerHTML;
                 } else {
                     // message has an attachment, but is not an adaptive card
-                    (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content")).innerHTML = "<p style='font-style: italic'>This message is unsupported.</p>";
+                    (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content")).innerHTML = "<p style='font-style: italic'>This message type is unsupported.</p>";
                 }
             } else {
                 // if it is a message, set the message text on the element

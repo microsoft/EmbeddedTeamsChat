@@ -14,6 +14,7 @@ As an example use case, you may want to embed a Teams chat into your Support Des
 1. Create a new chat
 1. Show latest chat messages (the message count fetched is configurable)
 1. Send a message to the chat
+1. Send and render adaptive card in chat message
 1. Add participants
 1. Receive chats in near real time
 1. Receive participant changes in near real time

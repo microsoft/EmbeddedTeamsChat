@@ -158,6 +158,8 @@
                     }
                     if ($("#txtChatTopic").val() && $("#txtChatTopic").val().length > 0)
                         text += `        topicName: "${$("#txtChatTopic").val()}",\n`;
+                    if ($("#txtContextCard").val() && $("#txtContextCard").val().length > 0)
+                        text += `        contextCard: "${$("#txtContextCard").val()}",\n`;
                     if ($("#txtParticipants").val() && $("#txtParticipants").val().length > 0) {
                         var p = $("#txtParticipants").val().split(";");
                         var pFlat = p.join("\",\"");
