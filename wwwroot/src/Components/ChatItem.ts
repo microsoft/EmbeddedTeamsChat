@@ -1,5 +1,6 @@
 import { ChatMessage } from "../Models/ChatMessage"
 import { StatusIcon } from "./StatusIcon";
+import * as AdaptiveCards from "adaptivecards";
 
 const one_day_in_ms = 1000 * 60 * 60 * 24;
 const template = document.createElement("template");
@@ -40,8 +41,31 @@ export class ChatItem extends HTMLElement {
             // update text only
             (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content")).innerHTML = "<p style='font-style: italic'>This message has been deleted</p>";
         } else {
-            // set the message texton the element
-            (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content")).innerHTML = message.message;
+            if (message.attachment != null) {
+                if (message.attachment?.type == "AdaptiveCard") {
+                // create adaptive card Instance
+                const adaptiveCard = new AdaptiveCards.AdaptiveCard();
+
+                // parse the Card payload
+                adaptiveCard.parse(message.attachment);
+
+                // rendered the card to an HTML Element
+                let renderedCard = adaptiveCard.render();
+
+                // get the message content element
+                let contentDom = (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content"));
+                if (contentDom != null && renderedCard != undefined)
+                    // set the innerHtml of the message content to the HTML of the adaptive card
+                    contentDom.innerHTML = renderedCard.outerHTML;
+                } else {
+                    // message has an attachment, but is not an adaptive card
+                    (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content")).innerHTML = "<p style='font-style: italic'>This message type is unsupported.</p>";
+                }
+            } else {
+                // if it is a message, set the message text on the element
+                (<HTMLElement>dom.querySelector(".teams-embed-chat-message-content")).innerHTML = message.message;
+            }
+
             if (message.sendFailed) {
                 // if send status is failed
                 // add the failed class and failed message

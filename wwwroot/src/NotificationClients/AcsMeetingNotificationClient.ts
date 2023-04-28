@@ -161,7 +161,8 @@ export class AcsMeetingNotificationClient implements INotificationClient {
         type: e.type,
         //version: "",
         createdOn: e.createdOn,
-        modifiedOn: e.createdOn, //TODO
+        modifiedOn: e.createdOn,
+        attachment: e.attachments?.length > 0 ? JSON.parse(e.attachments[0].content) : null
       };
       if (this.chatListener) this.chatListener(msg, Operation.Created);
     });

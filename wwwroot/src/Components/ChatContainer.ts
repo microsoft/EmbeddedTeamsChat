@@ -378,7 +378,8 @@ export class ChatContainer extends HTMLElement {
         const res = await GraphUtil.sendChatMessage(
             authInfo.accessToken,
             this.mapping.threadInfo.threadId,
-            messageHtml
+            messageHtml,
+            false
         );
 
         if (!res) {

@@ -16,6 +16,17 @@
     margin-left: -200px;
     top: 20px;
   }
+
+   /* Start Adaptive Card Styles */
+   .ac-container {
+    background-color: #ffffff;
+    border: 2px solid #f0f0f0;
+    border-radius: 1px;
+  }
+
+  .teams-embed-chat-message-content .ac-container div {
+    white-space: normal !important;
+  }
   
   /* Start Teams Embed Styles */
   .teams-embed-container {

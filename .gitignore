@@ -355,3 +355,6 @@ package-lock.json
 ## Users settings
 .env.[Dd]evelopment
 .env.[Pp]roduction
+
+# packaged front end code
+wwwroot/dist/*
