@@ -14,7 +14,6 @@ As an example use case, you may want to embed a Teams chat into your Support Des
 1. Create a new chat
 1. Show latest chat messages (the message count fetched is configurable)
 1. Send a message to the chat
-1. Send and render adaptive card in chat message
 1. Add participants
 1. Receive chats in near real time
 1. Receive participant changes in near real time
@@ -35,6 +34,37 @@ teamsEmbeddedChat.renderEmbed(
     }
 );
 </script>
+```
+
+### Configurable Options
+
+Chat conversations can be initiated by selecting a number of configuration options.
+
+| **Field**      | **Mandatory** | **Default Value**     | **Description** |
+| :---        |    :----:   |                  :--- |                 :--- |
+| Notification Source      | Yes       | Microsoft Graph  | Notification engine for delivering real time notifications with option to select either Microsoft Graph or ACS w/ Online Meeting. |
+| Entity ID   | Yes        | ' '     | Unique identifier that is used to identify a specific chat conversation. |
+| Chat Topic   | No        | Entity ID      | Subject or topic of a specific chat conversation.|
+| Chat Context Card JSON   | No        | ' '     | Information that describes a particular chat conversation in the form of an adaptive card JSON payload. |
+| Participants   | No        | ' '      | Participants Email address used to identify and reference a specific participant in the context of a chat conversation. |
+| Disable add participants   | No        | False    | Option to disable further addition of participants to a chat conversation from embedded chat UI, once chat has been initiated. |
+
+
+> **Note**   
+> The current version of the embedded chat does not support interactive elements such as actions in adaptive cards.
+> Feature to send Adaptive card in a ***chat message*** is currently not supported(Except chat context card). The adaptive card will, however, be rendered if sent via Teams.
+
+</em>
+
+#### Sample Configuration
+
+```text
+entityId: CR-786543
+topicName: Product development and testing requests- ES
+contextCard: { "$schema": "http://adaptivecards.io/schemas/adaptive-card.json", "type": "AdaptiveCard", "version": "1.5", "body": [ { "type": "TextBlock", "text": "Hi, can we chat about this Change Request?", "size": "Large", "weight": "Bolder" }, { "type": "TextBlock", "text": "This is a sample Chat Context Adaptive Card sent from Embedded Chat.", "wrap": true }, { "type": "Image", "url": "https://www.logodesignlove.com/wp-content/uploads/2012/08/microsoft-logo-02.jpeg", "size": "Medium" } ] }
+participants: alex@mngenvmcap773902.onmicrosoft.com
+disableAddParticipants: true
+
 ```
 
 ## Resources Needed
