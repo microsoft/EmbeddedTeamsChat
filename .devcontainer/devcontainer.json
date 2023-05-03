@@ -12,7 +12,7 @@
 		"dockerfile": "Dockerfile",
 		// Update 'VARIANT' to pick an Ubuntu version: focal, bionic
 		"args": {
-			"VARIANT": "6.0"
+			"VARIANT": "7.0"
 		}
 	},
 	"settings": {

@@ -1,4 +1,5 @@
 param appName string
+param userId string
 param clientId string
 @secure()
 param clientSecret string
@@ -14,6 +15,7 @@ module uai 'uai.bicep' = {
   name: 'dp${appName}-uai'
   params: {
     name: appName
+    userId: userId
   }
 }
 
