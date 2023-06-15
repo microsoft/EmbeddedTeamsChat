@@ -118,17 +118,34 @@ export class GraphNotificationClient implements INotificationClient {
         });
 
         // message received
-        this.connection.on(this.ReturnMethods.NewMessage, async (notification) => {
+        this.connection.on(this.ReturnMethods.NewMessage, async (notification, decryptedContent) => {
 
-            // decrypt the content
-            const response = await fetch(ConfigUtil.GnbEndpoint + "/api/GetChatMessageFromNotification", {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${gnbToken.accessToken}`
-                },
-                body: JSON.stringify(notification.encryptedContent)
-            });
-            var decryptedResourceData:any = await response.json();
+            // make descryption backwards compatible
+            var decryptedResourceData:any = null;
+            if(decryptedContent.length > 0) {
+                try {
+                    decryptedResourceData = JSON.parse(decryptedContent);
+                } catch (error) {
+                    if (error instanceof SyntaxError) {
+                      console.error(`Failed to parse decrypted content as JSON: ${error.message}`);
+                    } else {
+                      console.error(`Unexpected error parsing decrypted content as JSON: : ${error}`);
+                    }
+                    return;
+                  }
+            }
+
+            if (!decryptedResourceData) {
+                // decrypt the content
+                const response = await fetch(ConfigUtil.GnbEndpoint + "/api/GetChatMessageFromNotification", {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${gnbToken.accessToken}`
+                    },
+                    body: JSON.stringify(notification.encryptedContent)
+                });
+                decryptedResourceData = await response.json();
+            }
 
             // get the operation type
             const op:Operation = (notification.changeType == "created") ? Operation.Created 
