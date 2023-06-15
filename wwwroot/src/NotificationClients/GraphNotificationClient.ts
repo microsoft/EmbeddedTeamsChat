@@ -121,7 +121,19 @@ export class GraphNotificationClient implements INotificationClient {
         this.connection.on(this.ReturnMethods.NewMessage, async (notification, decryptedContent) => {
 
             // make descryption backwards compatible
-            var decryptedResourceData:any = decryptedContent;
+            var decryptedResourceData:any = null;
+            if(decryptedContent.length > 0) {
+                try {
+                    decryptedResourceData = JSON.parse(decryptedContent);
+                } catch (error) {
+                    if (error instanceof SyntaxError) {
+                      console.error(`Failed to parse decrypted content as JSON: ${error.message}`);
+                    } else {
+                      console.error(`Unexpected error parsing decrypted content as JSON: : ${error}`);
+                    }
+                    return;
+                  }
+            }
 
             if (!decryptedResourceData) {
                 // decrypt the content
