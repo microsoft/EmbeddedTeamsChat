@@ -358,3 +358,9 @@ package-lock.json
 
 # packaged front end code
 wwwroot/dist/*
+
+# azurite
+__azurite*.json
+
+# generated files
+main.parameters.json
